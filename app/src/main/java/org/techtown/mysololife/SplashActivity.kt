@@ -13,9 +13,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        //스플래쉬 끝나고 이동하는 화면
+        //스플래쉬 끝나고 IntroActivity로 이동
         Handler().postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))//IntroActivity로 이동
+            startActivity(Intent(this, org.techtown.mysololife.auth.IntroActivity::class.java))//IntroActivity로 이동
             finish()//스플래시 화면 종료
         },3000)//3초 뒤에 이동
     }
