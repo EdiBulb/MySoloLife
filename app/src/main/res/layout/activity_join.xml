@@ -1,76 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".auth.JoinActivity">
+<!--데이터 바인딩 하려면 layout을 최상단으로 해야함-->
+<layout>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/mainColor">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="회원가입"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
-
-        <!--이메일 입력 창-->
-        <!--배운 것 : themes.xml에서 정의한 스타일을 넣ㄱ-->
-        <EditText
-            style="@style/AuthEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="email" />
-
-        <!--비밀번호-->
-        <!--비밀번호 *으로 입력 inputType에서 설정하기-->
-        <EditText
-            style="@style/AuthEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="password"
-            android:inputType="textPassword" />
-
-        <!--비멀번호 체크-->
-        <EditText
-            style="@style/AuthEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="password check"
-            android:inputType="textPassword" />
-
-
-        <!--버튼 - 회원가입하기-->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/background_radius_yellow"
-            android:text="회원가입하기" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".auth.JoinActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#999999" />
+            android:layout_height="150dp"
+            android:background="@color/mainColor">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="회원가입"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <!--이메일 입력 창-->
+            <!--배운 것 : themes.xml에서 정의한 스타일을 넣ㄱ-->
+            <EditText
+                android:id="@+id/emailArea"
+                style="@style/AuthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="email" />
+
+            <!--비밀번호-->
+            <!--비밀번호 *으로 입력 inputType에서 설정하기-->
+            <EditText
+                android:id="@+id/passwordArea1"
+                style="@style/AuthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="password"
+                android:inputType="textPassword" />
+
+            <!--비멀번호 체크-->
+            <EditText
+                android:id="@+id/passwordArea2"
+                style="@style/AuthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="password check"
+                android:inputType="textPassword" />
+
+
+            <!--버튼 - 회원가입하기-->
+            <Button
+                android:id="@+id/joinBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/background_radius_yellow"
+                android:text="회원가입하기" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#999999" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>
