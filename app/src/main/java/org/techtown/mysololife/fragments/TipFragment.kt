@@ -34,9 +34,16 @@ class TipFragment : Fragment() {
         binding.category1.setOnClickListener {
             Log.d("TipFragment","실행")
             val intent = Intent(context,org.techtown.mysololife.contentsList.ContentsListActivity::class.java)
+            //인텐트로 카테고리 정보도 같이 넘기기
+            intent.putExtra("category", "category1")
             startActivity(intent)
         }
 
+        binding.category2.setOnClickListener {
+            val intent = Intent(context, ContentsListActivity::class.java)
+            intent.putExtra("category", "category2")
+            startActivity(intent)
+        }
 
 
         /*네비게이션 탭*/
