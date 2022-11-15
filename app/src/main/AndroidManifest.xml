@@ -18,7 +18,7 @@
         <activity
             android:name=".contentsList.ContentShowActivity"
             android:exported="false" />
-        <!-- /////////////////패키지에 있어서 name 안에 패키지 명까지 넣어줄 것//// //////////// -->
+        <!-- /////////////////패키지에 있어서 name 안에 패키지 명까지 넣어줄 것////  //////////// -->
         <activity
             android:name=".contentsList.ContentsListActivity"
             android:exported="false" /> <!-- ////////////////////// -->
