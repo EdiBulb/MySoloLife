@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.techtown.mysololife.R
+import org.techtown.mysololife.utils.FBAuth
 import org.techtown.mysololife.utils.FBRef
 import java.util.ArrayList
 import java.util.Arrays.toString
@@ -25,6 +26,10 @@ import java.util.Objects.toString
 class ContentsListActivity : AppCompatActivity() {
 
     lateinit var myRef : DatabaseReference
+
+    val bookmarkIdList = mutableListOf<String>()
+
+    lateinit var rvAdapter: ContentRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,7 @@ class ContentsListActivity : AppCompatActivity() {
         val itemKeyList = ArrayList<String>()
 
         //어댑터
-        val rvAdapter = ContentRVAdapter(baseContext,items, itemKeyList)
+        rvAdapter = ContentRVAdapter(baseContext,items, itemKeyList, bookmarkIdList)
 
         //파이어베이스 데이터베이스에 쓰기
         val database = Firebase.database
@@ -97,11 +102,13 @@ class ContentsListActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                for(dataModel in dataSnapshot.children){
-                    Log.d("getBookmarkData", dataModel.key.toString())
-                    Log.d("getBookmarkData", dataModel.toString())
-                }
+                bookmarkIdList.clear()
 
+                for(dataModel in dataSnapshot.children){
+                    bookmarkIdList.add(dataModel.key.toString())
+                }
+                Log.d("ContentListActivity", bookmarkIdList.toString())
+                rvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -109,7 +116,7 @@ class ContentsListActivity : AppCompatActivity() {
                 Log.w("ContentsListActivity", "loadPost:onCancelled", databaseError.toException())
             }
         }
-        FBRef.bookmarkRef.addValueEventListener(postListener)
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(postListener)
 
     }
 }
