@@ -2,6 +2,7 @@ package org.techtown.mysololife.contentsList
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.techtown.mysololife.R
+import org.techtown.mysololife.utils.FBAuth
+import org.techtown.mysololife.utils.FBRef
 
 /*리사이클러뷰를 위한 어댑터*/
 class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel>, val  keyList : ArrayList<String>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>(){
@@ -24,9 +27,7 @@ class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel
     }
 
     override fun onBindViewHolder(holder: ContentRVAdapter.Viewholder, position: Int) {
-
-
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], keyList[position])
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +35,7 @@ class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel
     }
 
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : ContentModel){
+        fun bindItems(item : ContentModel, key:String){
 
             itemView.setOnClickListener{
                 Toast.makeText(context, item.title, Toast.LENGTH_LONG).show()
@@ -49,7 +50,10 @@ class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmakrArea)
 
             bookmarkArea.setOnClickListener {
-                Toast.makeText(context, keyList.toString(), Toast.LENGTH_LONG).show()
+                Log.d("ContentRVAdapter", FBAuth.getUid())
+                Toast.makeText(context, key, Toast.LENGTH_LONG).show()
+
+                FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue("Good")
             }
 
 
