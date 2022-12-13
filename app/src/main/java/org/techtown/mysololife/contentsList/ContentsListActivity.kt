@@ -31,9 +31,10 @@ class ContentsListActivity : AppCompatActivity() {
 
         //데이터 모델 타입을 넣어준다.
         val items = ArrayList<ContentModel>()
+        val itemKeyList = ArrayList<String>()
 
         //어댑터
-        val rvAdapter = ContentRVAdapter(baseContext,items)
+        val rvAdapter = ContentRVAdapter(baseContext,items, itemKeyList)
 
         //파이어베이스 데이터베이스에 쓰기
         val database = Firebase.database
@@ -58,10 +59,12 @@ class ContentsListActivity : AppCompatActivity() {
                 //따라서 반복문을 써서 데이터를 하나씩 빼오겠다.
                 for(dataModel in dataSnapshot.children){
                     Log.d("ContentsListActivity", dataModel.toString()) // 한 덩이씩 나오는 걸 확인할 수 있다.
+                    Log.d("ContentListActivity", dataModel.key.toString())
                     //데이터의 value값을 item에 넣는다.
                     val item = dataModel.getValue(ContentModel::class.java)
                     //item을 items에 추가한다.
                     items.add(item!!)
+                    itemKeyList.add(dataModel.key.toString())
                 }
                 //동기화 문제 때문에, 데이터를 받아오고 난 뒤, 어댑터를 리프레쉬 해야한다.
                 rvAdapter.notifyDataSetChanged()
@@ -86,17 +89,6 @@ class ContentsListActivity : AppCompatActivity() {
         //두줄로 만드는 법 - GridLayoutManager를 사용해서 2를 집어넣기
         rv.layoutManager = GridLayoutManager(this,2)
 
-        rvAdapter.itemClick = object : ContentRVAdapter.ItemClick{
-            override fun onClick(view: View, position: Int) {
-                Toast.makeText(baseContext, items[position].title, Toast.LENGTH_LONG).show()
-
-                //ContentsListActivity에서 ContentShowActivity로 이동한다.
-                val intent = Intent(this@ContentsListActivity, ContentShowActivity::class.java)
-
-                intent.putExtra("url",items[position].webUrl)//클릭한 아이템의 webUrl데이터를 넘겨준다.
-                startActivity(intent)
-            }
-        }
 
         //데이터 베이스에 넣기기 - 넣었으니 주석처리
 //       myRef.push().setValue(

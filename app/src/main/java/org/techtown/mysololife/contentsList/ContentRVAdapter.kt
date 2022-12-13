@@ -1,24 +1,21 @@
 package org.techtown.mysololife.contentsList
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.techtown.mysololife.R
 
 /*리사이클러뷰를 위한 어댑터*/
-class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>(){
+class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel>, val  keyList : ArrayList<String>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>(){
 
-    //클릭하면 웹뷰가 나오도록 하기
-    interface ItemClick {
-        fun onClick(view : View, position: Int)
-    }
-    var itemClick : ItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.Viewholder {
         //만들어둔 아이템 가져오기
@@ -28,12 +25,7 @@ class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel
 
     override fun onBindViewHolder(holder: ContentRVAdapter.Viewholder, position: Int) {
 
-        //아이템을 클릭하면 웹뷰가 나오도록 하기기
-       if(itemClick != null){
-            holder.itemView.setOnClickListener{ v->
-                itemClick?.onClick(v,position)
-            }
-        }
+
         holder.bindItems(items[position])
     }
 
@@ -43,9 +35,23 @@ class ContentRVAdapter(val context : Context, val items : ArrayList<ContentModel
 
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bindItems(item : ContentModel){
-            val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
 
+            itemView.setOnClickListener{
+                Toast.makeText(context, item.title, Toast.LENGTH_LONG).show()
+                val intent = Intent(context, ContentShowActivity::class.java)
+                intent.putExtra("url", item.webUrl)
+                itemView.context.startActivity(intent)
+            }
+
+
+            val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
+            val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmakrArea)
+
+            bookmarkArea.setOnClickListener {
+                Toast.makeText(context, keyList.toString(), Toast.LENGTH_LONG).show()
+            }
+
 
             contentTitle.text = item.title
             
